@@ -7,7 +7,7 @@
  * @copyright Copyright (C) 2007 xrow. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl.txt GPL License
  */
-$http =& eZHTTPTool::instance();
+$http = eZHTTPTool::instance();
 $module =& $Params["Module"];
 if ( $Params['SiteAccess'] )
     $currentSiteAccess = $Params['SiteAccess'];
@@ -16,15 +16,10 @@ if ( $Params['Position'] )
 
 
 include_once( "kernel/common/template.php" );
-include_once( 'lib/ezutils/classes/ezhttptool.php' );
-include_once( 'kernel/classes/ezcontentbrowse.php' );
-include_once( "kernel/classes/ezsiteaccess.php" );
-include_once( "lib/ezdb/classes/ezdb.php" );
-include_once( "extension/toolbar2/classes/eztoolbar2.php" );
-include_once( "extension/toolbar2/classes/eztoolbar2_rule.php" );
 
-$db =& ezDB::instance();
-$siteini =& eZINI::instance();
+
+$db = ezDB::instance();
+$siteini = eZINI::instance();
 if ( !in_array( $currentSiteAccess, $siteini->variable( 'SiteAccessSettings', 'AvailableSiteAccessList' ) ) )
     return $module->handleError( EZ_ERROR_KERNEL_ACCESS_DENIED, 'kernel' );
 
@@ -94,7 +89,7 @@ elseif ( $currentAction == 'Configure' )
     }
     $checkCurrAction = true;
 }
-$toolbarIni =& eZINI::instance( "toolbar2.ini", 'settings', null, false, true, false );
+$toolbarIni = eZINI::instance( "toolbar2.ini", 'settings', null, false, true, false );
 $toolbarIni->prependOverrideDir( "siteaccess/$currentSiteAccess", false, 'siteaccess' );
 $toolbarIni->parse();
 
@@ -114,14 +109,14 @@ foreach ( $availableToolArray as $item )
 $availableToolArray = $mergedTools;
 asort($availableToolArray);
 
-$tpl =& templateInit();
+$tpl = templateInit();
 $tpl->setVariable( 'toolbar_position', $toolbarPosition );
 $tpl->setVariable( 'tool_list', $availableToolArray );
 $tpl->setVariable( 'current_siteaccess', $currentSiteAccess );
 $tpl->setVariable( 'toolbars', $toolbars );
 
 $Result = array();
-$Result['content'] =& $tpl->fetch( "design:toolbar2/toolbar.tpl" );
+$Result['content'] = $tpl->fetch( "design:toolbar2/toolbar.tpl" );
 $Result['path'] = array( array( 'url' => 'toolbar2/toolbarlist',
                                 'text' => ezi18n( 'kernel/design', 'Toolbar2 list' ) ) );
 

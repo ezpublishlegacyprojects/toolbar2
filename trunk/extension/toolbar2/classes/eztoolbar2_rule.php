@@ -7,9 +7,7 @@
  * @copyright Copyright (C) 2007 xrow. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl.txt GPL License
  */
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( 'lib/ezutils/classes/ezini.php' );
-include_once( "lib/ezdb/classes/ezdb.php" );
+
 define( 'EZTOOLBAR2_TYPE_NODE', 0 );
 define( 'EZTOOLBAR2_TYPE_TREE', 1 );
 define( 'EZTOOLBAR2_INCLUDE', 1 );
@@ -25,7 +23,7 @@ class eZToolbar2Rule extends eZPersistentObject
         $this->eZPersistentObject( $row );
     }
 
-    function definition()
+    static function definition()
     {
         return array( "fields" => array( "id" => array( 'name' => 'id',
                                                         'datatype' => 'integer',
@@ -58,16 +56,16 @@ class eZToolbar2Rule extends eZPersistentObject
                       "class_name" => "eZToolbar2Rule",
                       "name" => "eztoolbar2_rule" );
     }
-    function fetch( $ID )
+    static function fetch( $ID )
     {
         return eZPersistentObject::fetchObject( eZToolbar2Rule::definition(),
                                                 null, array('id' => $ID ), true );
     }
-    function fetchAllByID( $id )
+    static function fetchAllByID( $id )
     {
         return eZPersistentObject::fetchObjectList( eZToolbar2Rule::definition(), null, array('toolbar_id' => $id ), array( 'priority' => 'asc' ), null, true );
     }
-    function fetchByToolbarID( $ID )
+    static function fetchByToolbarID( $ID )
     {
         return eZPersistentObject::fetchObjectList( eZToolbar2Rule::definition(),
                                                 null, array('toolbar_id' => $ID ), array( 'priority' => 'asc' ), null, true );

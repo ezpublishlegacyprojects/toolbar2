@@ -13,6 +13,7 @@
 <div class="context-attributes">
 
 {if $toolbars}
+{def $tool_node=""}
 <table class="list" width="100%" cellspacing="0" cellpadding="0" border="0">
 {foreach $toolbars as $tool}
 <tr>
@@ -43,6 +44,7 @@
         <th>Include type</th>
         <th>Node</th>
         </tr>
+        
         {foreach $tool.rules as $rule}
         <tr>
             <td>
@@ -56,7 +58,7 @@
                 </select>
             </td>
             <td>
-                {def $tool_node=fetch( content, node, hash( node_id, $rule.node_id ) )}
+                {set $tool_node=fetch( content, node, hash( node_id, $rule.node_id ) )}
                 <b>{$tool_node.name|wash()}</b> ({$rule.node_id})
             </td>
         </tr>

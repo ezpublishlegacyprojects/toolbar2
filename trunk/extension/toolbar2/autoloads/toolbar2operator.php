@@ -86,7 +86,7 @@ class toolbar2Operator
         
         unset( $tools );
         $templateResult = "";
-        $tpl =& templateInit();
+        $tpl = templateInit();
         
         foreach ($includeTool as $item)
         {

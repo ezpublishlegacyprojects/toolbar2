@@ -7,10 +7,7 @@
  * @copyright Copyright (C) 2007 xrow. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl.txt GPL License
  */
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( 'lib/ezutils/classes/ezini.php' );
-include_once( "lib/ezdb/classes/ezdb.php" );
-include_once( "extension/toolbar2/classes/eztoolbar2_rule.php" );
+
 
 class eZToolbar2 extends eZPersistentObject
 {
@@ -21,7 +18,7 @@ class eZToolbar2 extends eZPersistentObject
     {
         $this->eZPersistentObject( $row );
     }
-    function definition()
+    static function definition()
     {
         return array( "fields" => array( "id" => array( 'name' => 'id',
                                                         'datatype' => 'integer',
@@ -50,19 +47,19 @@ class eZToolbar2 extends eZPersistentObject
                       "class_name" => "eZToolbar2",
                       "name" => "eztoolbar2" );
     }
-    function fetch( $ID )
+    static function fetch( $ID )
     {
         return eZPersistentObject::fetchObject( eZToolbar2::definition(),
                                                 null, array('id' => $ID ), true );
     }
     
-    function fetchAll( $toolbarname, $siteaccess )
+    static function fetchAll( $toolbarname, $siteaccess )
     {
         return eZPersistentObject::fetchObjectList( eZToolbar2::definition(), null, array('toolbarname' => $toolbarname, 'siteaccess' => $siteaccess ), array( 'priority' => 'asc' ), null, true );
     }
     
     
-    function fetchAllNames( $toolbarname, $siteaccess )
+    static function fetchAllNames( $toolbarname, $siteaccess )
     {
         $array = eZPersistentObject::fetchObjectList( eZToolbar2::definition(), null, array('toolbarname' => $toolbarname, 'siteaccess' => $siteaccess ), array( 'priority' => 'asc' ), null, true );
         $return = array();
@@ -73,7 +70,7 @@ class eZToolbar2 extends eZPersistentObject
         return $return;
     }
     
-    function fetchAllWithRules($toolbar_name, $siteaccess)
+    static function fetchAllWithRules($toolbar_name, $siteaccess)
     {
     	$tools = eZToolbar2::fetchAll($toolbar_name, $siteaccess);
         $return = array();

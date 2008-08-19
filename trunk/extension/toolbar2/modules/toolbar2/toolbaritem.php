@@ -7,7 +7,7 @@
  * @copyright Copyright (C) 2007 xrow. All rights reserved.
  * @license http://www.gnu.org/licenses/gpl.txt GPL License
  */
-$http =& eZHTTPTool::instance();
+$http = eZHTTPTool::instance();
 $module =& $Params["Module"];
 
 if ( $Params['SiteAccess'] )
@@ -17,15 +17,15 @@ if ( $Params['Position'] )
 if ( $Params['Tool'] )
     $currentTool =& $Params['Tool'];
 include_once( "kernel/common/template.php" );
-include_once( 'lib/ezutils/classes/ezhttptool.php' );
-include_once( 'kernel/classes/ezcontentbrowse.php' );
-include_once( "kernel/classes/ezsiteaccess.php" );
-include_once( "extension/toolbar2/classes/eztoolbar2.php" );
-include_once( "extension/toolbar2/classes/eztoolbar2_rule.php" );
-include_once( "lib/ezdb/classes/ezdb.php" );
-$db =& ezDB::instance();
-$tpl =& templateInit();
-$siteini =& eZINI::instance();
+#include_once( 'lib/ezutils/classes/ezhttptool.php' );
+#include_once( 'kernel/classes/ezcontentbrowse.php' );
+#include_once( "kernel/classes/ezsiteaccess.php" );
+#include_once( "extension/toolbar2/classes/eztoolbar2.php" );
+#include_once( "extension/toolbar2/classes/eztoolbar2_rule.php" );
+#include_once( "lib/ezdb/classes/ezdb.php" );
+$db = ezDB::instance();
+$tpl = templateInit();
+$siteini = eZINI::instance();
 if ( !in_array( $currentSiteAccess, $siteini->variable( 'SiteAccessSettings', 'AvailableSiteAccessList' ) ) )
     return $module->handleError( EZ_ERROR_KERNEL_ACCESS_DENIED, 'kernel' );
 
@@ -160,7 +160,7 @@ $tpl->setVariable( 'rules', $rules );
 $tpl->setVariable( 'current_siteaccess', $currentSiteAccess );
 
 $Result = array();
-$Result['content'] =& $tpl->fetch( "design:toolbar2/toolbaritem.tpl" );
+$Result['content'] = $tpl->fetch( "design:toolbar2/toolbaritem.tpl" );
 $Result['path'] = array( array( 'url' => 'toolbar2/toolbaritem',
                                 'text' => ezi18n( 'kernel/design', 'Toolbar2 Rules' ) ) );
 ?>
